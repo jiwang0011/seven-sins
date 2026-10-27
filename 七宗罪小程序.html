@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="49题七宗罪倾向自测，生成个性化倾向画像与自我探索报告。">
+<title>七宗罪 · 深度倾向画像</title>
+<style>
+:root{--bg:#0b0b12;--panel:#151420;--panel2:#201d2d;--text:#f5f1fb;--muted:#aaa5bd;--line:#363149;--gold:#e0c27a;--purple:#a391f0;--pink:#d783a5;--green:#8ecab0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#27203e 0,#0b0b12 48%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.75}
+.wrap{max-width:960px;margin:auto;padding:18px 14px 60px}.hero{text-align:center;padding:28px 8px 20px}.eyebrow{letter-spacing:.22em;color:var(--gold);font-size:11px;font-weight:800}.hero h1{font-size:clamp(34px,7vw,58px);line-height:1.15;margin:12px 0;background:linear-gradient(110deg,#fff1c8,#e0c27a 48%,#bda9ff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:650px;margin:auto;color:var(--muted)}.pill{display:inline-block;border:1px solid #51466c;border-radius:999px;padding:5px 12px;color:#d4c8f6;font-size:12px;margin-top:15px}
+.panel{background:rgba(21,20,32,.94);border:1px solid var(--line);border-radius:20px;padding:clamp(16px,3vw,25px);margin:15px 0;box-shadow:0 12px 40px #0002}.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.topline h2,.panel h2{font-size:20px;margin:0}.muted{color:var(--muted);font-size:14px}.progress{height:7px;border-radius:99px;background:#2c293a;overflow:hidden;margin:12px 0 18px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--gold));transition:width .2s}
+.q{padding:17px 0;border-top:1px solid var(--line)}.q:first-child{border-top:0}.q-title{font-weight:650;margin-bottom:12px}.qnum{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:9px;background:#2d2740;color:var(--gold);font-size:12px;margin-right:8px}.choices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice label{display:block;text-align:center;padding:10px 3px;border:1px solid #3b374e;border-radius:12px;color:var(--muted);font-size:13px;cursor:pointer;transition:.15s}.choice input:checked+label{background:#302847;border-color:var(--purple);color:white;box-shadow:inset 0 0 0 1px var(--purple)}.choice label:hover{border-color:#8273b3;color:white}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:1px solid #4b4560;border-radius:12px;padding:11px 17px;font-size:14px;font-weight:750;cursor:pointer;background:#252236;color:var(--text)}.btn.primary{background:linear-gradient(110deg,#9b83eb,#d8b86c);border:0;color:#100e18}.btn:disabled{opacity:.35;cursor:not-allowed}.btn:hover:not(:disabled){filter:brightness(1.12)}.hide{display:none!important}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}.chartbox{display:flex;justify-content:center;align-items:center;min-height:320px}.chartbox canvas{width:100%;max-width:430px;height:auto}.rank-list{display:grid;gap:11px}.rankrow{display:grid;grid-template-columns:74px 1fr 42px;gap:10px;align-items:center;font-size:14px}.bar{height:8px;background:#2d2a3b;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8f7bdd,#d7b66d)}.score{font-variant-numeric:tabular-nums;text-align:right;color:var(--gold);font-weight:750}.insight{border:1px solid var(--line);border-radius:15px;padding:17px;margin-top:13px;background:linear-gradient(135deg,#191725,#171622)}.insight h3{font-size:17px;margin:0 0 7px;color:#e7d5a2}.insight p{margin:7px 0;color:#d5d1e2;font-size:14px}.tag{font-size:12px;color:#c5b8ef;border:1px solid #4b4268;border-radius:99px;padding:2px 8px;white-space:nowrap}.notice{font-size:12px;color:#aaa6bd;border-left:3px solid #8f7bdd;padding-left:12px}.metricgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.metric{background:#1b1928;border:1px solid var(--line);border-radius:13px;padding:13px}.metric b{display:block;font-size:22px;color:var(--gold)}.metric span{font-size:12px;color:var(--muted)}.reporttext{white-space:pre-wrap}.footer{text-align:center;color:#777389;font-size:12px;margin-top:24px}
+@media(max-width:650px){.results-grid{grid-template-columns:1fr}.chartbox{min-height:250px}.rankrow{grid-template-columns:65px 1fr 38px}.choices{gap:4px}.choice label{font-size:12px;padding:10px 1px}.hero{padding-top:15px}.metricgrid{grid-template-columns:1fr 1fr 1fr}.metric{padding:9px}.metric b{font-size:18px}}
+@media print{body{background:#fff;color:#222}.panel{background:#fff;border-color:#ddd;box-shadow:none;break-inside:avoid}.muted,.notice,.footer{color:#555}.hero h1{color:#333;background:none}.btn,.pill{display:none}.insight,.metric{background:#fafafa;border-color:#ddd}.insight p{color:#333}.tag{color:#333;border-color:#aaa}.bar{background:#eee}.reporttext{color:#222}}
+</style></head>
+<body><div class="wrap">
+<header class="hero"><div class="eyebrow">SEVEN SINS · PERSONALITY EXPLORATION</div><h1>七宗罪 · 深度倾向画像</h1>
+<p>49 道混合情境题，观察你在自尊、目标、比较、情绪、行动、满足与亲密关系中的习惯反应。报告不定义你，只提供一面值得思考的镜子。</p>
+<div class="pill">49 道题 · 约 6–9 分钟 · 深度个人报告</div></header>
+<section id="quiz" class="panel"><div class="topline"><h2>开始你的倾向探索</h2><span id="progressText" class="muted">已回答 0 / 49</span></div>
+<p class="muted">请根据最近 3–6 个月的真实情况作答。没有标准答案：1 = 完全不符合，2 = 比较不符合，3 = 一半一半，4 = 比较符合，5 = 非常符合。请尽量凭第一反应作答。</p>
+<div class="progress"><span id="progressBar"></span></div><div id="questions"></div>
+<div class="actions"><button class="btn primary" id="finishBtn" disabled>生成我的深度报告 ↗</button><button class="btn" id="clearBtn" type="button">清空重答</button></div>
+<p class="notice" style="margin-top:16px">本测试是娱乐与自我探索工具，不是经过临床验证的心理量表，不用于诊断、招聘、评价道德水平或替代专业帮助。结果仅在当前浏览器本地计算。</p></section>
+<section id="report" class="hide">
+<div class="panel"><div class="topline"><h2>你的七宗罪倾向画像</h2><span class="tag">本次个人结果</span></div><p class="muted" id="reportIntro"></p>
+<div class="metricgrid" id="metrics"></div><div class="results-grid"><div class="chartbox"><canvas id="radar" width="460" height="460" aria-label="七项倾向雷达图"></canvas></div><div style="align-self:center"><div id="rankList" class="rank-list"></div></div></div>
+<div class="actions"><button class="btn primary" id="saveBtn">打印 / 保存报告 PDF</button><button class="btn" id="copyBtn">复制完整文字报告</button><button class="btn" id="retakeBtn">重新测试</button></div></div>
+<div class="panel"><h2>01 · 你的核心画像</h2><div id="profile"></div></div>
+<div class="panel"><h2>02 · 七项倾向逐项解读</h2><div id="analysis"></div></div>
+<div class="panel"><h2>03 · 你的倾向组合</h2><div id="combo"></div></div>
+<div class="panel"><h2>04 · 你可能忽略的内在拉扯</h2><div id="tensions"></div></div>
+<div class="panel"><h2>05 · 可以马上开始的微行动</h2><div id="plan"></div></div>
+<div class="panel"><h2>06 · 给你的个人总结</h2><div id="closing"></div></div>
+<div class="panel"><h2>关于这份报告</h2><p class="muted">各项指数由本问卷中对应的 7 道题计算：平均分换算为 0–100 分，方便比较你本次回答中的相对高低，不代表在人群中的百分位，也不意味着你“有某种人格”或具有某种临床问题。结果会受到当下心情、理解方式和自我观察准确度影响。请把它当作反思线索，而非定论。</p><p class="notice">答题与报告生成均在本地浏览器完成，不会自动上传。请勿将报告当作医学、心理诊断或重大人生决策的唯一依据。</p></div>
+</section><div class="footer">SEVEN SINS · 本地网页原型 · 不上传答题记录 · 非临床诊断</div></div>
+<script>
+const groups = [{"name": "傲慢", "en": "PRIDE", "desc": "自尊、优越感与对认可的需求", "strength": "自信、独立判断、敢于承担责任", "watch": "过度依赖证明自己时，可能会难以接纳反馈、承认不确定，或把一次失误看成对自我价值的否定。", "tip": "练习把“我做错了一件事”和“我这个人不行”分开。下次听到不同意见时，先复述对方观点，再决定哪些值得采纳。", "questions": ["当别人质疑我的能力时，我会很在意。", "我认为自己的判断通常比周围多数人更可靠。", "即使意识到自己有错，我有时也很难主动承认。", "在集体中，我希望自己的贡献能被明确看见。", "当别人没有认可我的努力时，我容易觉得失落或不被尊重。", "我不太愿意向别人展示自己不擅长或不懂的一面。", "如果别人表现得比我出色，我会想尽快证明自己也不差。"]}, {"name": "贪婪", "en": "GREED", "desc": "对金钱、资源、机会与成就的渴望", "strength": "进取心、规划意识、争取机会的动力", "watch": "如果总觉得现有的一切还不够，成就感可能变得短暂，休息也容易被内疚感打断。", "tip": "给目标设置“足够好”的标准，并定期问自己：我追求的下一步，是出于真实需要、兴趣，还是害怕落后？", "questions": ["得到已经想要的东西后，我很快又会想获得更多。", "即使目前条件还不错，我也容易担心资源或机会不够。", "为了实现目标，我愿意付出很大的时间或精力代价。", "看到稀缺机会时，我会担心错过后再也得不到。", "我会把收入、成绩、拥有的东西当作衡量进步的重要标准。", "即使已经完成目标，我也很难允许自己停下来享受成果。", "面对可以占有的资源或好处时，我常常想尽可能多争取一些。"]}, {"name": "嫉妒", "en": "ENVY", "desc": "社会比较、差距感与对公平的敏感", "strength": "观察力、竞争意识、发现差距并改进的动力", "watch": "持续比较容易让满足感被削弱，也可能让别人的成功看起来像是对自己的否定。", "tip": "把“为什么他有而我没有”改成“我具体欣赏他哪一点，可以学习什么”。同时用自己的阶段性目标衡量进步。", "questions": ["看到和我条件相似的人取得更大成就，我会有些不舒服。", "别人得到我也想要的机会时，我很难完全不在意。", "我会不自觉地比较自己的外貌、能力、成绩或生活。", "刷到别人看起来过得很好时，我容易觉得自己的生活逊色。", "当别人被夸奖而我没有被注意到时，我会有失落感。", "我有时会希望某个让我羡慕的人不要那么顺利。", "即使我原本很满意，知道别人拥有更多也可能改变我的感受。"]}, {"name": "暴怒", "en": "WRATH", "desc": "愤怒反应、边界感与冲突中的情绪调节", "strength": "对不公平和边界问题敏感，愿意表达立场、保护自己", "watch": "情绪太强时，表达方式可能盖过你真正合理的诉求；反复回想冲突也会消耗精力。", "tip": "情绪高涨时先暂停回复，等强度下降后，再描述具体发生了什么、造成什么影响，以及你希望如何解决。", "questions": ["受到冒犯时，我容易在短时间内产生强烈怒火。", "生气时，我有时会说出事后后悔的话。", "事情过去后，我仍可能反复想着让我愤怒的人或事。", "别人不按约定行事时，我会很难压住不满。", "我容易把某些批评理解成针对我个人的攻击。", "争执中，我有时更想争出输赢，而不是先解决问题。", "遇到明显不公平的事时，我会长时间难以平静。"]}, {"name": "懒惰", "en": "SLOTH", "desc": "行动启动、拖延与面对困难时的回避", "strength": "可能重视精力分配，善于寻找更省力、更高效的做法", "watch": "如果总用短期舒适来躲开重要任务，压力可能越积越多，自我评价也会受到影响。", "tip": "把任务拆成一个五分钟能完成的动作，指定开始时间，并先完成最小版本。目标不是靠意志力硬撑，而是降低开始的门槛。", "questions": ["即使知道事情重要，我也经常拖到最后才开始。", "遇到枯燥或困难的任务时，我容易选择逃避。", "我经常计划很多，却难以持续采取行动。", "想到一件任务很复杂，我可能迟迟不愿迈出第一步。", "我常用刷视频、玩游戏或其他轻松活动推迟该做的事。", "即使有空闲时间，我也可能因为提不起劲而放弃原本想做的事。", "任务没有外部期限或别人监督时，我更难保持进度。"]}, {"name": "暴食", "en": "GLUTTONY", "desc": "即时满足、享受体验与适可而止的平衡", "strength": "懂得享受生活，能从食物、娱乐、购物或休息中获得快乐", "watch": "若习惯用即时奖励处理所有不舒服的情绪，可能暂时舒服了，却没有照顾到真正的疲惫或需求。", "tip": "先识别触发情境，再设置温和边界。可以先暂停十分钟、确认自己真正需要什么，而不是用极端压抑或自责来应对。", "questions": ["我有时会为了缓解情绪而过度享受某种东西。", "面对喜欢的食物、娱乐或其他即时奖励时，我不容易适可而止。", "即使已经满足，我有时仍会继续追求短暂的快乐。", "压力大或无聊时，我更容易冲动消费或沉迷娱乐。", "我常想着“再来一点就好”，结果花费的时间或金钱超出计划。", "当我疲惫或心情不好时，我会优先寻找能立刻让我舒服的东西。", "结束娱乐活动时，我有时会觉得明明够了却还是停不下来。"]}, {"name": "色欲", "en": "LUST", "desc": "吸引力、幻想、亲密需求与关系边界", "strength": "重视亲密、吸引力和情感连接，愿意关注关系中的愉悦与热情", "watch": "如果一时冲动经常压过长期判断，可能忽略个人价值、双方感受或关系边界。", "tip": "区分一时吸引和长期选择，尊重自己与他人的同意、边界和真实感受。可以在重大决定前给自己一点冷静时间。", "questions": ["强烈的身体吸引或浪漫幻想有时会影响我的判断。", "我有时会把追求吸引力或亲密刺激放在其他事情之前。", "面对强烈的欲望时，我有时难以坚持原先设定的界限。", "我会花很多心思去获得某个人的关注或好感。", "即使知道一段关系并不适合我，强烈吸引也可能让我犹豫。", "我有时会把被渴望、被追求当作自我价值的重要证明。", "在亲密关系中，我有时会因为一时情绪或冲动而忽略长期后果。"]}];
+const items = [{"g": 4, "qi": 6, "q": "任务没有外部期限或别人监督时，我更难保持进度。"}, {"g": 2, "qi": 5, "q": "我有时会希望某个让我羡慕的人不要那么顺利。"}, {"g": 6, "qi": 6, "q": "在亲密关系中，我有时会因为一时情绪或冲动而忽略长期后果。"}, {"g": 2, "qi": 2, "q": "我会不自觉地比较自己的外貌、能力、成绩或生活。"}, {"g": 4, "qi": 4, "q": "我常用刷视频、玩游戏或其他轻松活动推迟该做的事。"}, {"g": 4, "qi": 0, "q": "即使知道事情重要，我也经常拖到最后才开始。"}, {"g": 1, "qi": 0, "q": "得到已经想要的东西后，我很快又会想获得更多。"}, {"g": 2, "qi": 3, "q": "刷到别人看起来过得很好时，我容易觉得自己的生活逊色。"}, {"g": 2, "qi": 4, "q": "当别人被夸奖而我没有被注意到时，我会有失落感。"}, {"g": 6, "qi": 5, "q": "我有时会把被渴望、被追求当作自我价值的重要证明。"}, {"g": 3, "qi": 0, "q": "受到冒犯时，我容易在短时间内产生强烈怒火。"}, {"g": 5, "qi": 2, "q": "即使已经满足，我有时仍会继续追求短暂的快乐。"}, {"g": 4, "qi": 2, "q": "我经常计划很多，却难以持续采取行动。"}, {"g": 0, "qi": 0, "q": "当别人质疑我的能力时，我会很在意。"}, {"g": 6, "qi": 2, "q": "面对强烈的欲望时，我有时难以坚持原先设定的界限。"}, {"g": 2, "qi": 6, "q": "即使我原本很满意，知道别人拥有更多也可能改变我的感受。"}, {"g": 1, "qi": 4, "q": "我会把收入、成绩、拥有的东西当作衡量进步的重要标准。"}, {"g": 3, "qi": 4, "q": "我容易把某些批评理解成针对我个人的攻击。"}, {"g": 0, "qi": 4, "q": "当别人没有认可我的努力时，我容易觉得失落或不被尊重。"}, {"g": 1, "qi": 6, "q": "面对可以占有的资源或好处时，我常常想尽可能多争取一些。"}, {"g": 1, "qi": 3, "q": "看到稀缺机会时，我会担心错过后再也得不到。"}, {"g": 4, "qi": 1, "q": "遇到枯燥或困难的任务时，我容易选择逃避。"}, {"g": 5, "qi": 0, "q": "我有时会为了缓解情绪而过度享受某种东西。"}, {"g": 4, "qi": 5, "q": "即使有空闲时间，我也可能因为提不起劲而放弃原本想做的事。"}, {"g": 6, "qi": 1, "q": "我有时会把追求吸引力或亲密刺激放在其他事情之前。"}, {"g": 6, "qi": 4, "q": "即使知道一段关系并不适合我，强烈吸引也可能让我犹豫。"}, {"g": 5, "qi": 6, "q": "结束娱乐活动时，我有时会觉得明明够了却还是停不下来。"}, {"g": 3, "qi": 1, "q": "生气时，我有时会说出事后后悔的话。"}, {"g": 3, "qi": 2, "q": "事情过去后，我仍可能反复想着让我愤怒的人或事。"}, {"g": 2, "qi": 1, "q": "别人得到我也想要的机会时，我很难完全不在意。"}, {"g": 3, "qi": 3, "q": "别人不按约定行事时，我会很难压住不满。"}, {"g": 5, "qi": 5, "q": "当我疲惫或心情不好时，我会优先寻找能立刻让我舒服的东西。"}, {"g": 3, "qi": 6, "q": "遇到明显不公平的事时，我会长时间难以平静。"}, {"g": 0, "qi": 5, "q": "我不太愿意向别人展示自己不擅长或不懂的一面。"}, {"g": 0, "qi": 2, "q": "即使意识到自己有错，我有时也很难主动承认。"}, {"g": 5, "qi": 1, "q": "面对喜欢的食物、娱乐或其他即时奖励时，我不容易适可而止。"}, {"g": 6, "qi": 0, "q": "强烈的身体吸引或浪漫幻想有时会影响我的判断。"}, {"g": 4, "qi": 3, "q": "想到一件任务很复杂，我可能迟迟不愿迈出第一步。"}, {"g": 5, "qi": 4, "q": "我常想着“再来一点就好”，结果花费的时间或金钱超出计划。"}, {"g": 0, "qi": 1, "q": "我认为自己的判断通常比周围多数人更可靠。"}, {"g": 2, "qi": 0, "q": "看到和我条件相似的人取得更大成就，我会有些不舒服。"}, {"g": 0, "qi": 6, "q": "如果别人表现得比我出色，我会想尽快证明自己也不差。"}, {"g": 3, "qi": 5, "q": "争执中，我有时更想争出输赢，而不是先解决问题。"}, {"g": 6, "qi": 3, "q": "我会花很多心思去获得某个人的关注或好感。"}, {"g": 5, "qi": 3, "q": "压力大或无聊时，我更容易冲动消费或沉迷娱乐。"}, {"g": 1, "qi": 5, "q": "即使已经完成目标，我也很难允许自己停下来享受成果。"}, {"g": 1, "qi": 1, "q": "即使目前条件还不错，我也容易担心资源或机会不够。"}, {"g": 0, "qi": 3, "q": "在集体中，我希望自己的贡献能被明确看见。"}, {"g": 1, "qi": 2, "q": "为了实现目标，我愿意付出很大的时间或精力代价。"}];
+const answers = Array(items.length).fill(0);
+const root = document.getElementById('questions');
+const labels = ['完全不符合','比较不符合','一半一半','比较符合','非常符合'];
+items.forEach((item,i)=>{
+  const row=document.createElement('div'); row.className='q';
+  row.innerHTML=`<div class="q-title"><span class="qnum">${String(i+1).padStart(2,'0')}</span>${item.q}</div><div class="choices">${labels.map((lab,j)=>`<div class="choice"><input type="radio" name="q${i}" id="q${i}_${j+1}" value="${j+1}"><label for="q${i}_${j+1}">${j+1}<br>${lab}</label></div>`).join('')}</div>`;
+  row.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{answers[i]=Number(input.value);updateProgress()}));
+  root.appendChild(row);
+});
+function updateProgress(){const n=answers.filter(Boolean).length;document.getElementById('progressText').textContent=`已回答 ${n} / ${items.length}`;document.getElementById('progressBar').style.width=(n/items.length*100)+'%';document.getElementById('finishBtn').disabled=n!==items.length}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function average(a){return a.reduce((x,y)=>x+y,0)/a.length}
+function band(s){return s>=75?'较突出':s>=60?'相对明显':s>=40?'中等':s>=25?'相对较低':'较低'}
+function makeReport(){
+ const raw=groups.map((g,gi)=>{const vals=items.map((it,i)=>it.g===gi?answers[i]:null).filter(v=>v!==null);return {...g,vals,avg:average(vals),score:Math.round((average(vals)-1)/4*100),sum:vals.reduce((a,b)=>a+b,0)}});
+ const ranked=[...raw].sort((a,b)=>b.score-a.score);
+ const top=ranked[0], second=ranked[1], low=ranked[6];
+ const spread=ranked[0].score-ranked[6].score;
+ const highCount=ranked.filter(x=>x.score>=60).length;
+ const midCount=ranked.filter(x=>x.score>=40&&x.score<60).length;
+ const lowCount=ranked.filter(x=>x.score<40).length;
+ const profileNames={
+  "傲慢":"自我证明型","贪婪":"目标驱动型","嫉妒":"比较敏感型","暴怒":"边界反应型","懒惰":"启动阻力型","暴食":"即时满足型","色欲":"吸引力牵引型"
+ };
+ const secondNames={"傲慢":"自我价值与认可","贪婪":"目标与掌控","嫉妒":"比较与公平","暴怒":"边界与情绪","懒惰":"行动与回避","暴食":"满足与节制","色欲":"吸引与亲密"};
+ const intro=`你的本次画像以「${top.name}」倾向最突出，其次是「${second.name}」。这不代表你被某种标签定义，而是说在这 49 道题所涉及的情境中，这两类反应更值得你优先观察。`;
+ document.getElementById('reportIntro').textContent=intro;
+ document.getElementById('metrics').innerHTML=`<div class="metric"><b>${profileNames[top.name]}</b><span>主要画像关键词</span></div><div class="metric"><b>${top.score}/100</b><span>${top.name} · 本次指数</span></div><div class="metric"><b>${spread} 分</b><span>最高与最低项差距</span></div>`;
+ document.getElementById('rankList').innerHTML=ranked.map((g,i)=>`<div class="rankrow"><span>${i+1}. ${g.name}</span><div class="bar"><span style="width:${g.score}%"></span></div><span class="score">${g.score}</span></div>`).join('');
+ drawRadar(raw);
+ const profileText = spread>=35
+ ? `你的七项分布有较明显的高低差异。与其说你“什么都很强烈”，不如说某些情境比其他情境更容易触发你的自动反应。当前最值得观察的是「${top.name}」：它可能在压力、竞争、关系或疲惫时变得更明显。最低项「${low.name}」则可能不是你的主要困扰，也可能只是你较少在这类情境中感到拉扯。`
+ : `你的七项分数相对接近，没有某一项与其他项拉开特别大的距离。这可能意味着你的反应更依赖具体情境，而不是总被单一主题主导。优先从「${top.name}」和「${second.name}」两个相对靠前的方向入手，比急着给自己下结论更有帮助。`;
+ const density = highCount>=4 ? `本次有 ${highCount} 项达到相对明显区间，说明你在多个主题上都能识别到一定程度的相关体验。它不等于问题更多，也可能反映你对自己较敏感、近期压力较大，或题目情境与你的生活比较贴近。` :
+ highCount===0 ? `没有项目达到相对明显区间。你可能较少认同题目描述，也可能最近生活比较稳定；如果某些题让你犹豫，不妨留意自己在疲惫、被评价或面对诱惑时是否会出现不同反应。` :
+ `本次有 ${highCount} 项达到相对明显区间、${midCount} 项处于中间区间、${lowCount} 项相对较低。这样的分布提供了一个优先级：先看最突出的主题，再观察它是否真的影响现实生活。`;
+ document.getElementById('profile').innerHTML=`<div class="insight"><h3>你的第一关键词：${profileNames[top.name]}</h3><p>${intro}</p><p>${profileText}</p><p>${density}</p></div><div class="insight"><h3>第二条线索：${secondNames[second.name]}</h3><p>当「${top.name}」与「${second.name}」同时出现时，值得留意它们是否会互相放大。例如，你可能在某些场景中既想得到认可，又很在意比较结果；也可能一方面渴望推进目标，另一方面在压力下倾向回避。这里是观察方向，不是对你实际行为的断言。</p></div>`;
+ document.getElementById('analysis').innerHTML=ranked.map((g,i)=>{
+   const relative=i===0?'本次最值得优先关注':i===1?'第二观察方向':i===6?'本次相对不突出的方向':'可以结合生活场景理解';
+   let interpretation;
+   if(g.score>=75) interpretation=`你对这类描述的认同度较高。它可能是你在特定场景中比较容易启动的反应模式，建议回想最近三次相关经历：当时发生了什么、你最在意什么、之后付出了什么代价。`;
+   else if(g.score>=60) interpretation=`这类体验在你的回答中相对明显，但不一定总会出现。可以观察它是否集中在某些触发条件下，例如被评价、感到落后、疲惫、缺少掌控感或面对强烈吸引时。`;
+   else if(g.score>=40) interpretation=`你的回答呈现中间水平，可能会因关系、压力和环境不同而变化。与其把它当成固定特征，不如记录什么情况下它会上升、什么情况下你能更灵活地选择回应方式。`;
+   else interpretation=`你对这类描述的认同度相对较低，它暂时可能不是你最主要的关注点。但低分并不意味着完全没有这种体验，也不需要为了得到某种“完整画像”而刻意寻找问题。`;
+   return `<div class="insight"><h3>${i+1}. ${g.name} <span class="tag">${g.score}/100 · ${band(g.score)}</span></h3><p><b>主题：</b>${g.desc}。${relative}。</p><p><b>可能的资源：</b>${g.strength}。</p><p><b>需要留意：</b>${g.watch}</p><p><b>结合你的分数：</b>${interpretation}</p><p><b>可尝试的做法：</b>${g.tip}</p></div>`;
+ }).join('');
+ const comboText = `第一组合「${top.name} + ${second.name}」是本次最醒目的搭配。你可以把它当作一个待验证的问题：当你在意${top.desc.replace(/、/g,'、')}时，是否也更容易出现与${second.desc}有关的反应？如果答案是“有时”，请继续找出具体场景；如果答案是“并没有”，那就说明分数相近并不必然意味着两者在现实中相互关联。`;
+ const combo2 = ranked[2];
+ document.getElementById('combo').innerHTML=`<div class="insight"><h3>主组合：${top.name} × ${second.name}</h3><p>${comboText}</p><p><b>自我观察问题：</b>最近一次出现这种感觉是在什么时候？你当时想保护、获得或避免的是什么？这个反应短期帮到了你什么，长期又可能让你付出什么？</p></div><div class="insight"><h3>第三条线索：${combo2.name}</h3><p>你的第三项相对靠前主题是「${combo2.name}」（${combo2.score}/100）。它可以作为补充视角，而不是再加一个标签。试着把前三项分别对应到一个真实事件，看看它们是否出现在同一种场景，还是各自发生在完全不同的生活领域。</p></div>`;
+ const t1 = top.name==='暴怒'?'你可能既需要维护边界，也需要让表达方式不遮盖真正诉求。暂停并不等于认输，而是让你有机会选择更有效的表达。':
+ top.name==='懒惰'?'你可能同时拥有想改变的目标与启动时的阻力。此时与其责备自己“不够自律”，不如检查任务是否过大、下一步是否模糊，以及精力是否真的不足。':
+ top.name==='嫉妒'?'你可能既希望进步，也会被比较带来的落差影响。把他人的结果转化为可学习的信息，同时保留自己的节奏，会比反复衡量输赢更有掌控感。':
+ top.name==='傲慢'?'你可能既希望被尊重，也需要允许自己不知道、做错或暂时落后。真正稳定的自信通常不需要每次都赢得证明。':
+ top.name==='贪婪'?'你可能既有追求进步的动力，也容易把“继续获得”当成默认方向。明确什么叫足够，可以帮助你在进取与满足之间主动选择。':
+ top.name==='暴食'?'你可能既需要享受和放松，也需要确认自己是在满足真实需求，还是暂时躲开压力。关键不是取消快乐，而是增加一点选择空间。':
+ '你可能既重视吸引力和亲密感，也需要让冲动与长期选择保持对话。允许自己有欲望，同时清楚表达边界，两者并不矛盾。';
+ const lowText=`你最低的一项是「${low.name}」（${low.score}/100）。不要把它理解为优点或缺点排名；它只是说明你对这组题目的认同相对少。你可以想想：这是因为你很少遇到相关情境，还是因为你已经有一套适合自己的处理方式？`;
+ document.getElementById('tensions').innerHTML=`<div class="insight"><h3>拉扯一：动力与代价</h3><p>${t1}</p></div><div class="insight"><h3>拉扯二：高分不等于坏，低分也不等于好</h3><p>${lowText}真正重要的是这些倾向是否与你的价值观一致，以及它们是否在反复制造你不想要的后果。</p></div><div class="insight"><h3>拉扯三：你在不同情境中可能是不同的自己</h3><p>同一个人在学习、亲密关系、社交媒体、金钱选择和疲惫状态下，可能呈现不同反应。请不要用一次测验概括整个人；更有价值的做法，是把结果和具体生活事件对照。</p></div>`;
+ const planSteps=[
+  ['今天：记录一个触发点',`当「${top.name}」相关情绪或冲动出现时，写下事件、当时的想法、感受强度（0–10）和你做出的反应。只记录，不急着评判。`],
+  ['接下来三天：试一次暂停',`选择一个你容易自动反应的场景，给自己一个小间隔：深呼吸三次、离开屏幕十分钟，或先写下但不立刻发送。观察暂停是否改变了结果。`],
+  ['本周：做一个最小行动',`围绕「${second.name}」选择一个可在 15 分钟内完成的小动作。完成后记录实际效果，而不是只评价自己有没有足够动力。`],
+  ['一周后：复盘而非定罪','回看记录：哪些情境最容易触发你？哪种应对有效？哪一项改变让生活更轻松？保留有用的方法，调整不适合的方法。']
+ ];
+ document.getElementById('plan').innerHTML=planSteps.map((s,i)=>`<div class="insight"><h3>${i+1}. ${s[0]}</h3><p>${s[1]}</p></div>`).join('');
+ document.getElementById('closing').innerHTML=`<div class="insight"><h3>给此刻的你</h3><p>这份报告里最重要的不是「${top.name}」这个名字，而是你愿不愿意看见自己在某些情境下的真实反应。倾向不是命运，分数也不是判决。你可以保留它带来的动力，同时练习减少它带来的代价。</p><p>下次当你发现自己又进入熟悉的模式时，不必急着责怪自己。先停下来问三个问题：我现在真正想要什么？我在保护什么？有没有一种更符合长期目标的回应方式？哪怕只多出一次选择空间，也已经是有价值的改变。</p><p>你的个人探索起点：<b>${top.name}</b>；第二观察方向：<b>${second.name}</b>；本次相对低分项：<b>${low.name}</b>。请把它们当作未来一周的观察提示，而不是固定身份。</p></div>`;
+ window._reportText = buildPlain(raw,ranked,top,second,low,spread,profileNames[top.name],t1,planSteps);
+ document.getElementById('report').classList.remove('hide');document.getElementById('quiz').classList.add('hide');window.scrollTo({top:0,behavior:'smooth'});
+}
+function buildPlain(raw,ranked,top,second,low,spread,profile,tension,planSteps){
+ let s=`七宗罪·深度倾向画像\n个人画像关键词：${profile}\n主要倾向：${top.name}（${top.score}/100）\n第二观察方向：${second.name}（${second.score}/100）\n相对低分项：${low.name}（${low.score}/100）\n七项分数差距：${spread}\n\n【七项指数】\n`;
+ ranked.forEach((g,i)=>s+=`${i+1}. ${g.name}：${g.score}/100（${band(g.score)}）\n`);
+ s+=`\n【核心画像】\n${top.name}是本次最突出的主题，${second.name}是第二观察方向。结果不定义你，而是提示你在这些情境中可能更容易出现相关反应。高低分只表示本次回答的相对差异，不代表人群排名。\n\n【逐项解读】\n`;
+ ranked.forEach(g=>s+=`\n${g.name}（${g.score}/100）\n主题：${g.desc}\n可能的资源：${g.strength}\n需要留意：${g.watch}\n可尝试：${g.tip}\n`);
+ s+=`\n【倾向组合】\n主组合：${top.name} × ${second.name}。请观察它们是否在同一情境出现，不要仅凭分数推断两者必然有关。\n\n【内在拉扯】\n${tension}\n最低项：${low.name}（${low.score}/100）。低分不代表完全不存在，也不代表优点或缺点。\n\n【微行动计划】\n`;
+ planSteps.forEach((x,i)=>s+=`${i+1}. ${x[0]}\n${x[1]}\n\n`);
+ s+=`【重要说明】\n本测试是娱乐与自我探索工具，未经临床验证，不用于心理诊断或道德评价。指数由本问卷答案换算而来，不是人群百分位。请结合真实经历理解结果，勿作为重大决策的唯一依据。`;
+ return s;
+}
+function drawRadar(data){
+ const c=document.getElementById('radar'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);
+ const cx=w/2,cy=h/2,r=155,n=data.length;
+ ctx.font='14px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+ for(let ring=1;ring<=5;ring++){ctx.beginPath();for(let i=0;i<n;i++){let a=-Math.PI/2+i*2*Math.PI/n,rr=r*ring/5,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath();ctx.strokeStyle='#39334c';ctx.lineWidth=1;ctx.stroke()}
+ for(let i=0;i<n;i++){let a=-Math.PI/2+i*2*Math.PI/n;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.strokeStyle='#39334c';ctx.stroke()}
+ ctx.beginPath();data.forEach((g,i)=>{let a=-Math.PI/2+i*2*Math.PI/n,rr=r*g.score/100,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle='rgba(163,145,240,.22)';ctx.fill();ctx.strokeStyle='#b5a3ff';ctx.lineWidth=2.5;ctx.stroke();
+ data.forEach((g,i)=>{let a=-Math.PI/2+i*2*Math.PI/n,rr=r*g.score/100,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#e0c27a';ctx.fill();let tx=cx+Math.cos(a)*(r+28),ty=cy+Math.sin(a)*(r+28);ctx.fillStyle='#eee8ff';ctx.font='13px system-ui';ctx.fillText(g.name,tx,ty)});
+}
+document.getElementById('finishBtn').addEventListener('click',makeReport);
+document.getElementById('clearBtn').addEventListener('click',()=>{answers.fill(0);document.querySelectorAll('input[type=radio]').forEach(x=>x.checked=false);updateProgress();window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('saveBtn').addEventListener('click',()=>window.print());
+document.getElementById('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window._reportText||'');const b=document.getElementById('copyBtn');b.textContent='已复制完整报告 ✓';setTimeout(()=>b.textContent='复制完整文字报告',1800)}catch(e){const ta=document.createElement('textarea');ta.value=window._reportText||'';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();alert('报告文字已尝试复制。若失败，请使用打印功能保存 PDF。')}});
+document.getElementById('retakeBtn').addEventListener('click',()=>{answers.fill(0);document.querySelectorAll('input[type=radio]').forEach(x=>x.checked=false);updateProgress();document.getElementById('report').classList.add('hide');document.getElementById('quiz').classList.remove('hide');window.scrollTo({top:0,behavior:'smooth'})});
+</script></body></html>
